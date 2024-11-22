@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './src/components/login';
 import Home from './src/components/home';
 import Signup from './src/components/signup';
+import CustomSplashScreen from './src/components/splashscreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,7 +32,13 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Signup">
+      <Stack.Navigator initialRouteName="Splash">
+      <Stack.Screen
+            name="Splash"
+            component={CustomSplashScreen}
+            options={{ headerShown: false }}
+     
+          />
         <Stack.Screen
         name='LoginScreen'
         component={ Login }

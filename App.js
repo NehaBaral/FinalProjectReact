@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from './src/components/login';
 import Home from './src/components/home';
+import Signup from './src/components/signup';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,11 +31,17 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Signup">
         <Stack.Screen
         name='LoginScreen'
         component={ Login }
         options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen

@@ -33,7 +33,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Signup">
         <Stack.Screen
-        name='LoginScreen'
+        name='Login'
         component={ Login }
         options={{ headerShown: false }}
         />

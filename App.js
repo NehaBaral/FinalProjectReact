@@ -13,47 +13,4 @@ export default function App() {
 
   return user ? <HomeStack /> : <AuthStack />
 
-  // const MainTabNavigator = () => (
-  //   <Tab.Navigator screenOptions={({ route }) => ({
-  //     tabBarActiveTintColor: '#145a32',
-  //     tabBarInactiveTintColor: 'gray',
-  //     headerTitleAlign: 'center',
-  //   })}>
-  //     <Tab.Screen
-  //       name="Home"
-  //       component={Home}
-  //       options={{ headerShown: false }}
-  //     />
-  //     <Tab.Screen
-  //       name="Setting"
-  //       component={Home}
-  //       options={{ headerShown: false }}
-  //     />
-  //   </Tab.Navigator>
-  // );
-
- // return (
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Signup">
-    //     <Stack.Screen
-    //     name='Login'
-    //     component={ Login }
-    //     options={{ headerShown: false }}
-    //     />
-
-    //     <Stack.Screen
-    //       name="Signup"
-    //       component={Signup}
-    //       options={{ headerShown: false }}
-    //     />
-
-    //     <Stack.Screen
-    //       name="MainTabs"
-    //       component={MainTabNavigator}
-    //       options={{ headerShown: false, gestureEnabled: false }}
-    //     />
-    //   </Stack.Navigator>
-
-    // </NavigationContainer>
- // );
 }

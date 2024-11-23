@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, Alert, ActivityIndicator, ImageBackground, Image } from 'react-native';
 import { db, auth } from '../../database/config';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
@@ -52,13 +51,14 @@ export default function Login() {
 
         setLoading(true);
         try {
-            const user = await signInWithEmailAndPassword(email, password);
+            const user = await signInWithEmailAndPassword(auth,email, password);
             if (user !== null) {
-                navigation.navigate('MainTabs');
+               console.log("Useremail=",user);
             } else {
                 Alert.alert('Error', 'Failed to log in ');
             }
         } catch (error) {
+            console.log("Error==",error)
             Alert.alert('Error', 'Failed to log in ');
         } finally {
             setLoading(false);

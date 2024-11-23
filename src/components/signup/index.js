@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Modal, Alert, ActivityIndicator, ImageBackground, Image } from 'react-native';
-import { db, auth } from '../../database/config';
+import {db,auth} from '../database/config'
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';

@@ -30,7 +30,7 @@ export default styles = StyleSheet.create({
     height: 250,
     resizeMode: 'contain'
   },
-  signupView: {
+  loginView: {
     width: '90%',
     marginHorizontal: 16,
     backgroundColor: 'white',
@@ -67,14 +67,14 @@ export default styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: 'center',
   },
-  loginContainer: {
+  signUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
      marginTop: 20,
      marginBottom: 30
   },
-  loginText: {
+  signUpText: {
     fontSize: 16,
     color: '#4a90e2',
     textDecorationLine : 'underline',

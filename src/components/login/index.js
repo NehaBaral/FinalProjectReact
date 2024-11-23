@@ -76,7 +76,7 @@ export default function Login() {
                     <Text style={styles.loadingText}>Please wait. Login.....</Text>
                 </View>
             )}
-            <View style={styles.signupView}>
+            <View style={styles.loginView}>
                 <Text style={styles.header}>Login</Text>
                 <TextInput
                     placeholder="Email"
@@ -100,10 +100,10 @@ export default function Login() {
                 >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <View style={styles.loginContainer}>
+                <View style={styles.signUpContainer}>
                     <Text style={styles.subheader}>Don't have an account? </Text>
-                    <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Signup')}>
-                        <Text style={styles.loginText}> Sign Up</Text>
+                    <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('SignUp')}>
+                        <Text style={styles.signUpText}> Sign Up</Text>
                     </TouchableOpacity>
                 </View>
             </View>

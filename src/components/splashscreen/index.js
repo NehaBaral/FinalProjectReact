@@ -10,10 +10,6 @@ export default function CustomSplashScreen() {
   const route = useRoute();
   const fadeAnim = useRef(new Animated.Value(0)).current; 
 
-  
-    
-
-
   useEffect(() => {
     if (SplashScreen && SplashScreen.hide) {
       SplashScreen.hide();
@@ -26,7 +22,7 @@ export default function CustomSplashScreen() {
     }).start();
 
     const timer = setTimeout(() => {
-     //navigation.replace('Signup'); 
+     navigation.replace('Login'); 
     }, 4000); 
 
     return () => clearTimeout(timer);

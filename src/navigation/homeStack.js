@@ -26,6 +26,30 @@ const Pet = () => {
         component={PetDetail}>
       </Stack.Screen>
 
+    </Stack.Navigator>
+  )
+};
+
+const HomeTab = () => {
+  return (
+    <Stack.Navigator>
+
+
+      <Stack.Screen
+        name='Home'
+        component={Home} options={{ headerShown: false }}>
+      </Stack.Screen>
+
+      <Stack.Screen
+        name='PetDetail'
+        component={PetDetail}>
+      </Stack.Screen>
+
+      <Tab.Screen
+            name="ThirdScreen"
+            component={FoodScheduleForm}
+            options={{ headerShown: true }}
+          />
 
     </Stack.Navigator>
   )
@@ -41,26 +65,26 @@ export default function HomeStack() {
           headerTitleAlign: 'center',
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === 'Home') {
+            if (route.name === 'HomeTab') {
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'SecondScreen') {
               iconName = focused ? 'list' : 'list-outline';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
-          },
+          }
         })}>
           <Tab.Screen
-            name="Home"
-            component={Pet}
-            options={{ headerShown: false }}
+            name="HomeTab"
+            component={HomeTab}
+            options={{ headerShown: false, title: 'Home' }}
           />
           <Tab.Screen
             name="SecondScreen"
-            component={FoodScheduleForm}
-            options={{ headerShown: true }}
+            component={Pet}
+            options={{ headerShown: false }}
           />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </StateProvider>
+      </Tab.Navigator>
+    </NavigationContainer>
+    </StateProvider >
   );
 }

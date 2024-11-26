@@ -9,6 +9,7 @@ export const StateProvider = (props) => {
 
     const [pets, setPets] = useState([]);
     const [vaccinations, setVaccinations] = useState([]);
+    const [foodSchedule, setFoodSchdeule] = useState([])
 
     const database = getDatabase()
     const databaseRef = ref(getDatabase());
@@ -40,6 +41,28 @@ export const StateProvider = (props) => {
         setVaccinations([])
     }
 
+    const getPetsByUser = (uid) => {
+        const userPetsRef = child(ref(database), `pets/${uid}`);
+
+        get(userPetsRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const petArray = Object.keys(data).map((key) => ({
+                        ...data[key],
+                        id: key,
+                    }));
+                    setPets(petArray);
+                } else {
+                    setPets([]);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching pets:", error);
+                setPets([]);
+            });
+    };
+
     const addNewVaccination = (data, petId) => {
 
         const newVacKey = push(child(databaseRef, 'vaccinations' + auth.currentUser.uid + '/' + petId)).key;
@@ -56,6 +79,19 @@ export const StateProvider = (props) => {
 
     }
 
+    const addSchedule = (data, petId) => {
+        const newSchKey = push(child(databaseRef, 'foodSchedule' + auth.currentUser.uid + '/' + petId)).key;
+
+        const updates = {};
+        updates['/foodSchedule/' + auth.currentUser.uid + '/' + petId + '/' + newSchKey] = data;
+
+        update(databaseRef, updates);
+
+        const newSch = { ...data, id: newSchKey }
+        setFoodSchdeule(foodSchedule => [...foodSchedule, newSch])
+
+    }
+
     const deleteVaccination = (vaccinationId, petId) => {
 
         const updates = {};
@@ -68,17 +104,13 @@ export const StateProvider = (props) => {
     const getVaccinations = (petId) => {
         get(child(databaseRef, `vaccinations` + '/' + auth.currentUser.uid + '/' + petId)).then((snapshot) => {
             if (snapshot.exists()) {
-                console.log(snapshot.val());
                 const data = snapshot.val();
                 const vacArray = [];
                 for (let key in data) {
                     vacArray.push({ ...data[key], id: key });
                 }
                 setVaccinations(vacArray);
-
-
             } else {
-                console.log("No vaccinations available");
                 setVaccinations([])
             }
         }).catch((error) => {
@@ -87,18 +119,49 @@ export const StateProvider = (props) => {
         });
     }
 
+    const updateSchedule = (updatedData, petId, scheduleId) => {
+        const path = `foodSchedule/${auth.currentUser.uid}/${petId}/${scheduleId}`;
+        const scheduleRef = ref(database, path);
+    
+        update(scheduleRef, updatedData)
+            .then(() => {
+                console.log("Schedule updated successfully!");
+            })
+            .catch((error) => {
+                console.error("Error updating schedule:", error);
+            });
+    };
+
+    const getSchedule = async (petId) => {
+        try {
+            const snapshot = await get(child(databaseRef, `foodSchedule/${auth.currentUser.uid}/${petId}`));
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                return Object.keys(data).map((key) => ({
+                    ...data[key],
+                    id: key,
+                }));
+            } else {
+                console.log("No Schedule available");
+                return [];
+            }
+        } catch (error) {
+            console.error("Error fetching schedule:", error);
+            return [];
+        }
+    };
+    
+
     useEffect(() => {
 
         get(child(databaseRef, `pets` + '/' + auth.currentUser.uid)).then((snapshot) => {
             if (snapshot.exists()) {
-                console.log(snapshot.val());
                 const data = snapshot.val();
                 const petArray = [];
                 for (let key in data) {
                     petArray.push({ ...data[key], id: key });
                 }
                 setPets(petArray);
-
 
             } else {
                 console.log("No pets available");
@@ -112,7 +175,7 @@ export const StateProvider = (props) => {
     }, []);
 
     return (
-        <StateContext.Provider value={{ pets: [pets, setPets], vaccinations: [vaccinations, setVaccinations], addNewPet, deletePet, addNewVaccination, deleteVaccination, getVaccinations }}>
+        <StateContext.Provider value={{ pets: [pets, setPets], vaccinations: [vaccinations, setVaccinations], addNewPet, deletePet, addNewVaccination, deleteVaccination, getVaccinations, getPetsByUser, addSchedule, getSchedule, updateSchedule }}>
             {props.children}
         </StateContext.Provider>
     )

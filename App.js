@@ -10,7 +10,6 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 export default function App() {
   const { user } = useAuthentication();
-
   return user ? <HomeStack /> : <AuthStack />
 
 }

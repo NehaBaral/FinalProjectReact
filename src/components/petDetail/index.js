@@ -1,4 +1,4 @@
-import { View, Text, Pressable, SafeAreaView, ScrollView, TouchableOpacity, TextInput, Button } from "react-native"
+import { View, Text, Pressable, SafeAreaView, ScrollView, Image, TouchableOpacity, ImageBackground, TextInput, Button } from "react-native"
 import styles from "./styles"
 import { useState, useContext, useEffect } from "react"
 import { MaterialIcons } from '@expo/vector-icons';
@@ -9,7 +9,6 @@ import { StateContext } from "../../../StateContext";
 export default PetDetail = ({ navigation, route }) => {
     const pet = route.params.ele;
 
-    console.log('pet', pet)
     const { vaccinations, addNewVaccination, deleteVaccination, getVaccinations } = useContext(StateContext)
     const [vaccinationList, setVaccinationList] = vaccinations
     const [addVaccinationDetail, setVaccinationDetail] = useState(false)
@@ -18,7 +17,7 @@ export default PetDetail = ({ navigation, route }) => {
     const [errorMessage, setErrorMessage] = useState(null);
 
     useEffect(() => {
-        getVaccinations(pet.id)
+        getVaccinations(pet?.id)
     }, []);
 
     const onChange = (event, selectedDate) => {
@@ -26,39 +25,57 @@ export default PetDetail = ({ navigation, route }) => {
         setDate(currentDate);
     };
 
+    function checkType(type) {
+        const lowerCaseType = type.toLowerCase();
+        if (lowerCaseType == 'dog' ) {
+          return require('../../../assets/dog.jpg')
+        } else if (lowerCaseType == 'cat') {
+          return require('../../../assets/cat.jpg')
+        } else {
+          return require('../../../assets/fish.jpg')
+        }
+      }
 
+      const OnAddSchedule = () => {
+        navigation.navigate("ThirdScreen", { ele: pet });
+      }
 
     const displayPetDetail = () => {
+        const defaultImage = checkType(pet.type)
+
+        const imageUri = pet.image ? { uri: pet.image } : defaultImage;
         return (
-            <View>
-                <View style={styles.petContainer}>
+            <View style={styles.petContainer}>
+                <View style={styles.headerContainer}>
                     <View>
-                        <Text style={styles.titleStyle}>{pet.name}</Text>
-                        <Text style={styles.subTitleStyle}>{pet.type}</Text>
-                        <Text style={styles.subTitleStyle}>Age: {pet.age}</Text>
+                    <Text style={styles.petName}>{pet?.name}</Text>
+                    <Text style={styles.petType}>{pet?.type}</Text>
+                    <Text style={styles.petAge}>Age: {pet?.age}</Text>
                     </View>
+                    <Image source={imageUri} style={styles.petImage} />
                 </View>
-                <ScrollView>
+            
+                <TouchableOpacity style={styles.addScheduleBtn} onPress={OnAddSchedule}>
+                        <Text style = {{color : 'white'}}>Create schedule for food tracking</Text>
+                    </TouchableOpacity>
+
+                <ScrollView contentContainerStyle={styles.vaccinationList}>
                     {displayVaccinations()}
                 </ScrollView>
-            </View >
-        )
+            </View>
+        );
     }
 
     const displayVaccinations = () => {
-        return vaccinationList.map((ele) => {
-            return (
-                <View key={ele.id} style={styles.petContainer}>
-                    <View >
-                        <Text style={styles.titleStyle}>{ele.name}</Text>
-                        <Text style={styles.subTitleStyle}>{ele.date}</Text>
-                    </View>
-                    <View style={styles.deleteBtn}>
-                        <Button color={'red'} title="Delete" onPress={() => deleteVaccination(ele.id, pet.id)}></Button>
-                    </View>
-                </View>
-            )
-        });
+        return vaccinationList.map((ele) => (
+            <View key={ele.id} style={styles.vaccinationCard}>
+                <Text style={styles.vaccinationName}>{ele.name}</Text>
+                <Text style={styles.vaccinationDate}>{ele.date}</Text>
+                <TouchableOpacity style={styles.deleteButton} onPress={() => deleteVaccination(ele.id, pet.id)}>
+                    <Text style={styles.deleteButtonText}>Delete</Text>
+                </TouchableOpacity>
+            </View>
+        ));
     }
 
     const handleFABPress = () => {
@@ -89,8 +106,10 @@ export default PetDetail = ({ navigation, route }) => {
 
     if (addVaccinationDetail) {
         return (
-            <View style={styles.container}>
+            <ImageBackground source={require('../../../assets/bg.jpg')} style={styles.background}>
                 <SafeAreaView />
+
+            <View style={styles.container}>
                 <View style={styles.addContainer}>
                     <TextInput
                         style={styles.textInput}
@@ -118,10 +137,11 @@ export default PetDetail = ({ navigation, route }) => {
                         </View>
                     </View>
                 </View>
-
-            </View>)
+            </View>
+            </ImageBackground>)
     } else {
         return (
+            <ImageBackground source={require('../../../assets/bg.jpg')} style={styles.background}>
             <View style={styles.container}>
                 <SafeAreaView />
                 <ScrollView>
@@ -132,6 +152,7 @@ export default PetDetail = ({ navigation, route }) => {
                     <MaterialIcons name="add" size={24} color="white" />
                 </TouchableOpacity>
             </View>
+            </ImageBackground>
         )
     }
 }

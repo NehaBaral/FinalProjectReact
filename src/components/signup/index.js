@@ -69,6 +69,7 @@ export default function Signup({}){
       setEmail('');
       setPassword('');
       setUsername('');
+      navigation.navigate('PetForm')
     } catch (error) {
       console.error("Signup error:", error);
       Alert.alert("Signup error:", error.message);

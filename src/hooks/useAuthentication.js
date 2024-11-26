@@ -9,6 +9,7 @@ export function useAuthentication(){
     React.useEffect(() => {
         const checkUser = onAuthStateChanged(auth, (user) => {
             if(user) {
+                console.log(user)
                 setUser(user);
             }else {
                 setUser(undefined)

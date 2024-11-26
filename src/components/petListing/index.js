@@ -12,6 +12,7 @@ export default function PetListing({ navigation }) {
     const [petName, setPetName] = useState('')
     const [petType, setPetType] = useState('')
     const [petAge, setPetAge] = useState('')
+    const [petImage, setPetImage] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
 
     const handleFABPress = () => {
@@ -27,11 +28,13 @@ export default function PetListing({ navigation }) {
             addNewPet({
                 name: petName,
                 type: petType,
-                age: petAge
+                age: petAge,
+                image: petImage
             })
             setPetName('')
             setPetType('')
             setPetAge('')
+            setPetImage('');
             setErrorMessage(null)
             setAddPet(false)
         } else {
@@ -96,6 +99,11 @@ export default function PetListing({ navigation }) {
                         keyboardType="numeric"
                         onChangeText={handlePetAgeChange}
                     ></TextInput>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Enter image URL (Optional)"
+                        onChangeText={(value) => setPetImage(value)}
+                    />
                     {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
                     <View style={styles.buttonContainer}>
                         <View style={styles.button}>

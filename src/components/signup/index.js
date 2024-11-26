@@ -60,16 +60,15 @@ export default function Signup({}){
       const userId = userCredential.user.uid;
       setLoading(true)
 
-      await setDoc(doc(db, 'users', userId), {
-        email,
-        username,
-        createdAt: serverTimestamp(),
-      });
+      // await setDoc(doc(db, 'users', userId), {
+      //   email,
+      //   username,
+      //   createdAt: serverTimestamp(),
+      // });
 
       setEmail('');
       setPassword('');
       setUsername('');
-      navigation.navigate('PetForm')
     } catch (error) {
       console.error("Signup error:", error);
       Alert.alert("Signup error:", error.message);

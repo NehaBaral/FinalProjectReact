@@ -7,7 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
 import { StateProvider } from "../../StateContext";
-import PetForm from "../components/petForm";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();

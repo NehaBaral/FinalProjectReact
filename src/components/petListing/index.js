@@ -55,7 +55,7 @@ export default function PetListing({ navigation }) {
         return petList.map((ele) => {
             return (
                 <TouchableOpacity style={styles.itemContainer}
-                    onPress={() => { navigation.navigate('PetDetail') }}
+                    onPress={() => { navigation.navigate('PetDetail', { ele }) }}
                     key={ele.id}
                 >
                     <View>

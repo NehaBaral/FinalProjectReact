@@ -1,10 +1,13 @@
 import { View, TouchableOpacity, SafeAreaView, TextInput, Button, ScrollView, Text } from "react-native";
 import styles from "./styles";
 import { MaterialIcons } from '@expo/vector-icons';
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { StateContext } from "../../../StateContext";
 
 export default function PetListing({ navigation }) {
 
+    const { pets, addNewPet, deletePet } = useContext(StateContext)
+    const [petList, setPetList] = pets
     const [addPet, setAddPet] = useState(false)
     const [petName, setPetName] = useState('')
     const [petType, setPetType] = useState('')
@@ -21,6 +24,11 @@ export default function PetListing({ navigation }) {
 
     const submitPet = () => {
         if (petName && petType && petAge) {
+            addNewPet({
+                name: petName,
+                type: petType,
+                age: petAge
+            })
             setPetName('')
             setPetType('')
             setPetAge('')
@@ -44,20 +52,27 @@ export default function PetListing({ navigation }) {
     }
 
     const displayPets = (navigation) => {
-        return (
-            <TouchableOpacity style={styles.itemContainer}
-                onPress={() => { navigation.navigate('PetDetail') }}
-            >
-                <View >
-                    <Text style={styles.titleStyle}>Jule</Text>
-                    <Text style={styles.subTitleStyle}>Cat</Text>
-                    <Text style={styles.subTitleStyle}>Age: 3</Text>
-                </View>
-                <View style={styles.deleteBtn}>
-                    <Button color={'red'} title="Delete"></Button>
-                </View>
-            </TouchableOpacity>
-        )
+        return petList.map((ele) => {
+            return (
+                <TouchableOpacity style={styles.itemContainer}
+                    onPress={() => { navigation.navigate('PetDetail', { ele }) }}
+                    key={ele.id}
+                >
+                    <View>
+                        <Text style={styles.titleStyle}>{ele.name}</Text>
+                        <Text style={styles.subTitleStyle}>{ele.type}</Text>
+                        <Text style={styles.subTitleStyle}>Age: {ele.age}</Text>
+                    </View>
+                    <View style={styles.deleteBtn}>
+                        <Button
+                            color={'red'}
+                            title="Delete"
+                            onPress={() => deletePet(ele.id)}
+                        ></Button>
+                    </View>
+                </TouchableOpacity>
+            )
+        });
     }
 
     if (addPet) {

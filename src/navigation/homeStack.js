@@ -6,6 +6,7 @@ import Home from "../components/home";
 import { Ionicons } from '@expo/vector-icons';
 import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
+import { StateProvider } from "../../StateContext";
 import FoodScheduleForm from "../components/foodScheduleForm";
 
 const Stack = createNativeStackNavigator();
@@ -32,32 +33,34 @@ const Pet = () => {
 
 export default function HomeStack() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={({ route }) => ({
-        tabBarActiveTintColor: '#145a32',
-        tabBarInactiveTintColor: 'gray',
-        headerTitleAlign: 'center',
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-          if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'SecondScreen') {
-            iconName = focused ? 'list' : 'list-outline';
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}>
-        <Tab.Screen
-          name="Home"
-          component={Pet}
-          options={{ headerShown: false }}
-        />
-        <Tab.Screen
-          name="SecondScreen"
-          component={FoodScheduleForm}
-          options={{ headerShown: true }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <StateProvider>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={({ route }) => ({
+          tabBarActiveTintColor: '#145a32',
+          tabBarInactiveTintColor: 'gray',
+          headerTitleAlign: 'center',
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'SecondScreen') {
+              iconName = focused ? 'list' : 'list-outline';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}>
+          <Tab.Screen
+            name="Home"
+            component={Pet}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="SecondScreen"
+            component={FoodScheduleForm}
+            options={{ headerShown: true }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </StateProvider>
   );
 }

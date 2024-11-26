@@ -3,24 +3,25 @@ import { StyleSheet } from "react-native"
 export default styles = StyleSheet.create({
     background: {
         flex: 1,
-        resizeMode: 'cover',  // Ensures the image covers the entire screen
+        resizeMode: 'cover',
         justifyContent: 'center', 
     },
     container: {
         flexGrow: 1,
-        padding: 30,
+        padding: 20,
     },
     petContainer: {
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 16,
-        height:400,
-        marginBottom: 16,
+        height:650,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 3,
+        marginTop: 10
+
     },
     headerContainer: {
         flexDirection: 'row',

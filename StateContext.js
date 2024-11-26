@@ -40,6 +40,28 @@ export const StateProvider = (props) => {
         setVaccinations([])
     }
 
+    const getPetsByUser = (uid) => {
+        const userPetsRef = child(ref(database), `pets/${uid}`);
+
+        get(userPetsRef)
+            .then((snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const petArray = Object.keys(data).map((key) => ({
+                        ...data[key],
+                        id: key,
+                    }));
+                    setPets(petArray);
+                } else {
+                    setPets([]);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching pets:", error);
+                setPets([]);
+            });
+    };
+
     const addNewVaccination = (data, petId) => {
 
         const newVacKey = push(child(databaseRef, 'vaccinations' + auth.currentUser.uid + '/' + petId)).key;
@@ -112,7 +134,7 @@ export const StateProvider = (props) => {
     }, []);
 
     return (
-        <StateContext.Provider value={{ pets: [pets, setPets], vaccinations: [vaccinations, setVaccinations], addNewPet, deletePet, addNewVaccination, deleteVaccination, getVaccinations }}>
+        <StateContext.Provider value={{ pets: [pets, setPets], vaccinations: [vaccinations, setVaccinations], addNewPet, deletePet, addNewVaccination, deleteVaccination, getVaccinations, getPetsByUser }}>
             {props.children}
         </StateContext.Provider>
     )

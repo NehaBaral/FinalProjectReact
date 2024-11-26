@@ -25,9 +25,21 @@ export default PetDetail = ({ navigation, route }) => {
         setDate(currentDate);
     };
 
-
+    function checkType(type) {
+        const lowerCaseType = type.toLowerCase();
+        if (lowerCaseType == 'dog' ) {
+          return require('../../../assets/dog.jpg')
+        } else if (lowerCaseType == 'cat') {
+          return require('../../../assets/cat.jpg')
+        } else {
+          return require('../../../assets/fish.jpg')
+        }
+      }
 
     const displayPetDetail = () => {
+        const defaultImage = checkType(pet.type)
+
+        const imageUri = pet.image ? { uri: pet.image } : defaultImage;
         return (
             <View style={styles.petContainer}>
                 <View style={styles.headerContainer}>
@@ -36,7 +48,7 @@ export default PetDetail = ({ navigation, route }) => {
                     <Text style={styles.petType}>{pet?.type}</Text>
                     <Text style={styles.petAge}>Age: {pet?.age}</Text>
                     </View>
-                    <Image source={{ uri: pet?.image }} style={styles.petImage} />
+                    <Image source={imageUri} style={styles.petImage} />
 
                 </View>
              

@@ -6,6 +6,7 @@ import Home from "../components/home";
 import { Ionicons } from '@expo/vector-icons';
 import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
+import FoodScheduleForm from "../components/foodScheduleForm";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,8 +54,8 @@ export default function HomeStack() {
         />
         <Tab.Screen
           name="SecondScreen"
-          component={Home}
-          options={{ headerShown: false }}
+          component={FoodScheduleForm}
+          options={{ headerShown: true }}
         />
       </Tab.Navigator>
     </NavigationContainer>

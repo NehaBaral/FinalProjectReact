@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
       marginBottom:0,
     },
     logoText: {
-     
       fontSize: scale(40),
       fontWeight: 'bold',
       color: '#ffffff', 

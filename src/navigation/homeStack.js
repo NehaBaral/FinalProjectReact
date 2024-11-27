@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
 import { StateProvider } from "../../StateContext";
+import FoodScheduleForm from "../components/foodScheduleForm";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -32,18 +33,23 @@ const Pet = () => {
 const HomeTab = () => {
   return (
     <Stack.Navigator>
-      
-      
+
+
       <Stack.Screen
         name='Home'
-        component={Home}  options={{ headerShown: false }}>
+        component={Home} options={{ headerShown: false }}>
       </Stack.Screen>
 
       <Stack.Screen
         name='PetDetail'
         component={PetDetail}>
       </Stack.Screen>
-      
+
+      <Tab.Screen
+        name="MealTracking"
+        component={FoodScheduleForm}
+        options={{ headerShown: true }}
+      />
 
     </Stack.Navigator>
   )
@@ -79,6 +85,6 @@ export default function HomeStack() {
           />
         </Tab.Navigator>
       </NavigationContainer>
-    </StateProvider>
+    </StateProvider >
   );
 }

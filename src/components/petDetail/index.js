@@ -36,6 +36,10 @@ export default PetDetail = ({ navigation, route }) => {
         }
       }
 
+      const OnAddSchedule = () => {
+        navigation.navigate("MealTracking", { ele: pet });
+      }
+
     const displayPetDetail = () => {
         const defaultImage = checkType(pet.type)
 
@@ -49,9 +53,11 @@ export default PetDetail = ({ navigation, route }) => {
                     <Text style={styles.petAge}>Age: {pet?.age}</Text>
                     </View>
                     <Image source={imageUri} style={styles.petImage} />
-
                 </View>
-             
+            
+                <TouchableOpacity style={styles.addScheduleBtn} onPress={OnAddSchedule}>
+                        <Text style = {{color : 'white'}}>Create schedule for food tracking</Text>
+                    </TouchableOpacity>
 
                 <ScrollView contentContainerStyle={styles.vaccinationList}>
                     {displayVaccinations()}

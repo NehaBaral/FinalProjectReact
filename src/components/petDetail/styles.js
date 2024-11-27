@@ -124,5 +124,13 @@ export default styles = StyleSheet.create({
         color: 'red',
         fontSize: 14,
         marginBottom: 8,
+    },
+    addScheduleBtn: {
+        backgroundColor: 'green',
+        padding: 12,
+        borderRadius: 10,
+        alignItems: 'center',
+        marginVertical : 10,
+        marginHorizontal : 16
     }
 })

@@ -37,7 +37,7 @@ export default PetDetail = ({ navigation, route }) => {
       }
 
       const OnAddSchedule = () => {
-        navigation.navigate("ThirdScreen", { ele: pet });
+        navigation.navigate("MealTracking", { ele: pet });
       }
 
     const displayPetDetail = () => {

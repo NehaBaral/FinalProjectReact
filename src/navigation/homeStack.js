@@ -46,10 +46,10 @@ const HomeTab = () => {
       </Stack.Screen>
 
       <Tab.Screen
-            name="ThirdScreen"
-            component={FoodScheduleForm}
-            options={{ headerShown: true }}
-          />
+        name="MealTracking"
+        component={FoodScheduleForm}
+        options={{ headerShown: true }}
+      />
 
     </Stack.Navigator>
   )
@@ -83,8 +83,8 @@ export default function HomeStack() {
             component={Pet}
             options={{ headerShown: false }}
           />
-      </Tab.Navigator>
-    </NavigationContainer>
+        </Tab.Navigator>
+      </NavigationContainer>
     </StateProvider >
   );
 }

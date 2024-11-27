@@ -1,8 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Button, FlatList, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Button, FlatList, Text, TextInput, TouchableOpacity, View, ActivityIndicator } from "react-native";
 import styles from "./style";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { StateContext } from "../../../StateContext";
+import Counter from "react-native-counters";
 
 export default function FoodScheduleForm({ navigation, route }) {
     const pet = route.params.ele;
@@ -13,6 +14,7 @@ export default function FoodScheduleForm({ navigation, route }) {
     const list = useRef(null);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+
 
     useEffect(() => {
         async function fetchSchedule() {
@@ -32,7 +34,7 @@ export default function FoodScheduleForm({ navigation, route }) {
 
     // Function to update mealData based on foodCount
     const handleGenerateMeals = () => {
-        if (foodCount <= 0) {
+        if (foodCount < 0) {
             setErrorMessage("Please enter a valid number of meals.");
             return;
         }
@@ -48,7 +50,7 @@ export default function FoodScheduleForm({ navigation, route }) {
         setFoodCount(0);
     };
 
-    // Update time for a specific meal
+    // function to update time for a specific meal
     const handleTimeChange = (event, selectedTime, index) => {
         if (selectedTime) {
             const updatedData = [...mealData];
@@ -69,7 +71,7 @@ export default function FoodScheduleForm({ navigation, route }) {
     const OnAddSchedule = () => {
         // Validate the form before submitting
         if (mealData.some((meal) => !meal.foodName || !meal.time)) {
-            setErrorMessage("Please fill out all fields for each meal.");
+            Alert.alert("Please fill out all fields for each meal.");
             return;
         }
 
@@ -90,7 +92,7 @@ export default function FoodScheduleForm({ navigation, route }) {
             navigation.goBack();
         } catch (error) {
             setErrorMessage("Failed to save meal schedule.")
-        }finally{
+        } finally {
             setLoading(false);
         }
     };
@@ -104,21 +106,22 @@ export default function FoodScheduleForm({ navigation, route }) {
                 onChangeText={(text) => handleInputChange(text, index)}
                 style={styles.input}
             />
-            <TouchableOpacity
-                style={styles.updateTimeButton}
-                onPress={() =>
-                    setShowTimePicker((prev) => ({ ...prev, [index]: true }))}
-            >
-                <Text style={styles.buttonText}>
-                    {`Select Time (${item.time
-                        ? new Date(item.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-                        : "Set Time"
-                        })`}
-                </Text>
-            </TouchableOpacity>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ marginTop: 20, fontWeight: 'bold', fontSize: 16 }}>{`Time :  ${item.time
+                    ? new Date(item.time).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                    : "Set Time"
+                    }`}</Text>
+                <TouchableOpacity
+                    style={styles.updateTimeButton}
+                    onPress={() =>
+                        setShowTimePicker((prev) => ({ ...prev, [index]: true }))}
+                >
+                    <Text style={styles.buttonText}>Select Time </Text>
+                </TouchableOpacity>
+            </View>
             {showTimePicker[index] && (
                 <DateTimePicker
-                    value={item.time || new Date()} // Default time fallback
+                    value={item.time instanceof Date && !isNaN(item.time) ? item.time : new Date()} // Default time fallback
                     mode="time"
                     display="default"
                     onChange={(event, selectedTime) =>
@@ -133,17 +136,31 @@ export default function FoodScheduleForm({ navigation, route }) {
         return <View style={{ height: 2, backgroundColor: "#023020" }} />;
     };
 
+    const onChange = (number, type) => {
+        setFoodCount(Number(number))
+    }
+
     return (
         <View style={styles.container}>
+            {loading && (
+                <View style={styles.loadingOverlay}>
+                    <ActivityIndicator size="large" color="#2856ad" />
+                    <Text style={styles.loadingText}>Please wait. Login.....</Text>
+                </View>
+            )}
             <Text style={styles.heading}>Set Meal Schedule</Text>
             <View style={styles.mealCountBg}>
-                <TextInput
-                    value={foodCount}
-                    placeholder="Enter number of meals"
-                    keyboardType="numeric"
-                    onChangeText={(text) => setFoodCount(Number(text))}
-                    style={styles.input}
-                />
+                <Counter key={foodCount}
+                    start={foodCount}
+                    onChange={onChange.bind(this)} buttonStyle={{
+                        borderColor: '#333',
+                        borderWidth: 2,
+                    }} buttonTextStyle={{
+                        color: '#333',
+                    }}
+                    countTextStyle={{
+                        color: '#333',
+                    }} />
                 <TouchableOpacity style={styles.addCountBtn} onPress={handleGenerateMeals}>
                     <View>
                         <Text style={styles.buttonText}>Generate Forms</Text>
@@ -158,13 +175,13 @@ export default function FoodScheduleForm({ navigation, route }) {
                 ItemSeparatorComponent={Separator}
                 style={styles.list}
             />
-            {/* {mealData.length > 0 && ( */}
-            <TouchableOpacity style={styles.updateButton} onPress={OnAddSchedule} disabled={loading}>
-                <View>
-                    <Text style={styles.buttonText}>{loading ? "Saving..." : "Add Schedule"}</Text>
-                </View>
-            </TouchableOpacity>
-            {/* )} */}
+            {mealData.length > 0 && (
+                <TouchableOpacity style={styles.updateButton} onPress={OnAddSchedule} disabled={loading}>
+                    <View>
+                        <Text style={styles.buttonText}>{mealData.length < 1 ? "Add Schedule" : "Update Schedule"}</Text>
+                    </View>
+                </TouchableOpacity>
+            )}
         </View>
     );
 }

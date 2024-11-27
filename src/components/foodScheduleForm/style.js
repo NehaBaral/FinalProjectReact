@@ -45,7 +45,7 @@ export default styles = StyleSheet.create({
         marginTop: 16,
       },
       updateButton: {
-        backgroundColor: 'red',
+        backgroundColor: 'green',
         padding: 12,
         borderRadius: 10,
         alignItems: 'center',
@@ -61,7 +61,7 @@ export default styles = StyleSheet.create({
       backgroundColor : "#7f5815",
       padding: 12,
       borderRadius: 10,
-      alignItems: 'center',
+      alignItems: 'flex-end',
       marginVertical : 10,
       marginHorizontal : 16
     }

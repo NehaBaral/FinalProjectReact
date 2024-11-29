@@ -8,6 +8,7 @@ import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
 import { StateProvider } from "../../StateContext";
 import FoodScheduleForm from "../components/foodScheduleForm";
+import AdoptPetScreen from "../components/adoptpet/index";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -55,6 +56,21 @@ const HomeTab = () => {
   )
 };
 
+const AdoptPet =()=>{
+  return(
+  <Stack.Navigator>
+
+
+  <Stack.Screen
+    name='AdoptPets'
+    component={AdoptPetScreen} options={{ headerShown: true }}>
+  </Stack.Screen>
+
+
+</Stack.Navigator>
+  )
+}
+
 export default function HomeStack() {
   return (
     <StateProvider>
@@ -69,6 +85,8 @@ export default function HomeStack() {
               iconName = focused ? 'home' : 'home-outline';
             } else if (route.name === 'SecondScreen') {
               iconName = focused ? 'list' : 'list-outline';
+            } else if(route.name==='AdoptPets') {
+              iconName = focused ? 'home' : 'home-outline'
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           }
@@ -81,6 +99,11 @@ export default function HomeStack() {
           <Tab.Screen
             name="SecondScreen"
             component={Pet}
+            options={{ headerShown: false }}
+          />
+                 <Tab.Screen
+            name="AdoptPets"
+            component={AdoptPet}
             options={{ headerShown: false }}
           />
         </Tab.Navigator>

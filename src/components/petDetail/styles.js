@@ -57,7 +57,7 @@ export default styles = StyleSheet.create({
         flexDirection: 'row',
     },
     vaccinationCard: {
-        backgroundColor: '#f9f9f9',
+     
         borderRadius: 8,
         padding: 12,
         marginBottom: 12,

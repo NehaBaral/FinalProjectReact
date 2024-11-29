@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 4 },
     },
     image: {
-      width: 120,
-      height: 200,
+      width: '80%',
+      height: 100,
       borderRadius: 10,
       alignSelf:'center'
       
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
       marginVertical: 8,
-      color: '#00388e', 
+      color: '#fffff', 
     },
     details: {
       fontSize: 16,
       marginVertical: 4,
-      color: '#00388e', 
+      color: '#fffff', 
     },
     errorText: {
       color: 'red',

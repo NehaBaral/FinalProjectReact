@@ -122,15 +122,15 @@ errorText: {
 },
 buttonContainer: {
   flex: 1,
-  margin: 8,
+  paddingHorizontal: 10
 },
 button: {
-  borderRadius: 20,
-  marginBottom: 16
+  borderRadius: 8,
+  marginTop: 10,
+  marginBottom: 20,
 },
 petHeader: {
   fontSize: 30,
-  marginBottom: 30,
   marginHorizontal: 10,
   fontWeight: 'bold'
 },
@@ -146,5 +146,5 @@ dropdown: {
   height: 53,
   width: '100%',
   fontSize: 12
-},
+}
 });

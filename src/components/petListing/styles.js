@@ -59,6 +59,14 @@ export default styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '700'
     },
-    deleteBtn: {alignSelf: 'center'}
+    deleteBtn: {alignSelf: 'center'},
+    dateContainer: {
+        marginBottom: 16,
+    },
+    dateSelector: {
+        backgroundColor: '#cccccc',
+        padding: 8,
+        borderRadius: 8
+    },
 
 })

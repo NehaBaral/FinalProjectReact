@@ -76,6 +76,18 @@ export default PetDetail = ({ navigation, route }) => {
 
     }
 
+    const getDOB = (value) => {
+        const milliseconds = value.seconds * 1000 + value.nanoseconds / 1000000;
+        const date = new Date(milliseconds);
+
+        const formattedDate = date.toLocaleString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        });
+        return <Text style={styles.petDOB}>DOB: {formattedDate}</Text>
+    }
+
     const displayPetDetail = () => {
         const defaultImage = checkType(pet.type)
 
@@ -87,7 +99,7 @@ export default PetDetail = ({ navigation, route }) => {
                         <View>
                             <Text style={styles.petName}>{pet?.name}</Text>
                             <Text style={styles.petType}>{pet?.type}</Text>
-                            <Text style={styles.petAge}>Age: {pet?.age}</Text>
+                            {getDOB(pet.dob)}
                         </View>
                         <Image source={imageUri} style={styles.petImage} />
                     </View>

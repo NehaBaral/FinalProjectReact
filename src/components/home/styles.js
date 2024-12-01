@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
   background: {
-      flex: 1,
-    },
+    flex: 1,
+  },
   container: {
     flexGrow: 1,
     padding: 20,
@@ -51,7 +51,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   petCard: {
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
     borderRadius: 10,
     marginRight: 15,
     padding: 15,
@@ -82,7 +82,7 @@ export default styles = StyleSheet.create({
     color: '#444',
     marginRight: 5,
   },
-  petAge: {
+  petDOB: {
     fontSize: 15,
     color: '#777',
   },
@@ -91,7 +91,7 @@ export default styles = StyleSheet.create({
     color: '#666',
     marginTop: 5,
   },
-fab: {
+  fab: {
     position: 'absolute',
     bottom: 20,
     right: 20,
@@ -100,51 +100,62 @@ fab: {
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-},
-petContainer: {
-  flex: 1,
-  paddingVertical: 60,
-  paddingHorizontal: 5
-},
-addContainer: {
-  flex: 1,
-},
-textInput: {
-  padding: 16,
-  borderWidth: 1,
-  borderColor: 'gray',
-  borderRadius: 8,
-  margin: 8
-},
-errorText: {
-  color: 'red',
-  marginHorizontal: 16
-},
-buttonContainer: {
-  flex: 1,
-  paddingHorizontal: 10
-},
-button: {
-  borderRadius: 8,
-  marginTop: 10,
-  marginBottom: 20,
-},
-petHeader: {
-  fontSize: 30,
-  marginHorizontal: 10,
-  fontWeight: 'bold'
-},
-dropdownContainer: {
-  borderWidth: 1,
-  borderColor: 'gray',
-  borderRadius: 5,
-  marginVertical: 10,
-  marginHorizontal: 10,
-  paddingHorizontal: 5,
-},
-dropdown: {
-  height: 53,
-  width: '100%',
-  fontSize: 12
-}
+  },
+  petContainer: {
+    flex: 1,
+    paddingVertical: 60,
+    paddingHorizontal: 5
+  },
+  addContainer: {
+    flex: 1,
+  },
+  textInput: {
+    padding: 16,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 8,
+    margin: 8
+  },
+  errorText: {
+    color: 'red',
+    marginHorizontal: 16
+  },
+  buttonContainer: {
+    flex: 1,
+    paddingHorizontal: 10
+  },
+  button: {
+    borderRadius: 8,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  petHeader: {
+    fontSize: 30,
+    marginHorizontal: 10,
+    fontWeight: 'bold'
+  },
+  dropdownContainer: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    paddingHorizontal: 5,
+  },
+  dropdown: {
+    height: 53,
+    width: '100%',
+    fontSize: 12
+  },
+  dateContainer: {
+    marginBottom: 16,
+    marginTop: 8,
+    marginHorizontal: 8
+  },
+  dateSelector: {
+    backgroundColor: '#cccccc',
+    padding: 16,
+    marginTop: 8,
+    borderRadius: 8
+  }
 });

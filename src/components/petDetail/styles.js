@@ -40,7 +40,7 @@ export default styles = StyleSheet.create({
         color: '#555',
         marginBottom: 10
     },
-    petAge: {
+    petDOB: {
         fontSize: 16,
         color: '#888',
     },

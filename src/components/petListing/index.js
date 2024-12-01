@@ -3,6 +3,7 @@ import styles from "./styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState, useContext } from "react";
 import { StateContext } from "../../../StateContext";
+import { Timestamp } from "firebase/firestore";
 
 export default function PetListing({ navigation }) {
 
@@ -11,9 +12,11 @@ export default function PetListing({ navigation }) {
     const [addPet, setAddPet] = useState(false)
     const [petName, setPetName] = useState('')
     const [petType, setPetType] = useState('')
-    const [petAge, setPetAge] = useState('')
+    const [petDOB, setPetDOB] = useState(Date())
     const [petImage, setPetImage] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
 
     const handleFABPress = () => {
         setAddPet(true)
@@ -28,12 +31,12 @@ export default function PetListing({ navigation }) {
             addNewPet({
                 name: petName,
                 type: petType,
-                age: petAge,
+                dob: Timestamp.fromDate(petDOB),
                 image: petImage
             })
             setPetName('')
             setPetType('')
-            setPetAge('')
+            setPetAge(Date())
             setPetImage('');
             setErrorMessage(null)
             setAddPet(false)
@@ -52,6 +55,32 @@ export default function PetListing({ navigation }) {
 
     const handlePetAgeChange = (value) => {
         setPetAge(value)
+    }
+
+    const showDatePicker = () => {
+        setDate(new Date())
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const getDOB = (value) => {
+
+        const milliseconds = value.seconds * 1000 + value.nanoseconds / 1000000;
+
+        const date = new Date(milliseconds);
+
+        const formattedDate = date.toLocaleString('en-US', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        });
+
+        return <Text style={styles.vaccinationDate}>{formattedDate}</Text>
+
+
     }
 
     const displayPets = (navigation) => {
@@ -98,7 +127,29 @@ export default function PetListing({ navigation }) {
                         placeholder="Enter pet age."
                         keyboardType="numeric"
                         onChangeText={handlePetAgeChange}
+
                     ></TextInput>
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.dateText}>Pet DOB</Text>
+                        <TouchableOpacity
+                            style={styles.dateSelector}
+                            onPress={showDatePicker}>
+                            <Text>{date.toLocaleString('en', {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric'
+                            })}</Text>
+                        </TouchableOpacity>
+
+                        {isDatePickerVisible && <DateTimePicker
+                            testID="dateTimePicker"
+                            value={date}
+                            mode="date"
+                            display="default"
+                            onChange={onChange}
+                        />
+                        }
+                    </View>
                     <TextInput
                         style={styles.textInput}
                         placeholder="Enter image URL (Optional)"

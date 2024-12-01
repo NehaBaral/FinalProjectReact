@@ -1,21 +1,22 @@
 import { StyleSheet } from "react-native";
 
 export default styles = StyleSheet.create({
-    background: {
-        flex: 1,
-      },
+  background: {
+      flex: 1,
+    },
   container: {
     flexGrow: 1,
     padding: 20,
     paddingVertical: 50,
   },
   profileContainer: {
+    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 30,
     backgroundColor: 'rgba(248, 248, 249, 0.9)',
     padding: 20,
-    paddingVertical: 15,
+    paddingVertical: 12,
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -24,11 +25,6 @@ export default styles = StyleSheet.create({
     elevation: 3,
   },
   avatar: {
-    width: 72,
-    height: 72,
-    borderColor: '#000',
-    borderWidth: 2,
-    borderRadius: 40,
     marginRight: 15,
   },
   name: {
@@ -95,4 +91,60 @@ export default styles = StyleSheet.create({
     color: '#666',
     marginTop: 5,
   },
+fab: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#6a1b9a',
+    borderRadius: 30,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+petContainer: {
+  flex: 1,
+  paddingVertical: 60,
+  paddingHorizontal: 5
+},
+addContainer: {
+  flex: 1,
+},
+textInput: {
+  padding: 16,
+  borderWidth: 1,
+  borderColor: 'gray',
+  borderRadius: 8,
+  margin: 8
+},
+errorText: {
+  color: 'red',
+  marginHorizontal: 16
+},
+buttonContainer: {
+  flex: 1,
+  paddingHorizontal: 10
+},
+button: {
+  borderRadius: 8,
+  marginTop: 10,
+  marginBottom: 20,
+},
+petHeader: {
+  fontSize: 30,
+  marginHorizontal: 10,
+  fontWeight: 'bold'
+},
+dropdownContainer: {
+  borderWidth: 1,
+  borderColor: 'gray',
+  borderRadius: 5,
+  marginVertical: 10,
+  marginHorizontal: 10,
+  paddingHorizontal: 5,
+},
+dropdown: {
+  height: 53,
+  width: '100%',
+  fontSize: 12
+}
 });

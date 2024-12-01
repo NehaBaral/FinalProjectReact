@@ -96,11 +96,11 @@ export default function HomeStack() {
             component={HomeTab}
             options={{ headerShown: false, title: 'Home' }}
           />
-          <Tab.Screen
+          {/* <Tab.Screen
             name="SecondScreen"
             component={Pet}
             options={{ headerShown: false }}
-          />
+          /> */}
                  <Tab.Screen
             name="AdoptPets"
             component={AdoptPet}

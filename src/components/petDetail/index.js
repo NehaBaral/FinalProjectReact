@@ -5,10 +5,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StateContext } from "../../../StateContext";
 
-
 export default PetDetail = ({ navigation, route }) => {
     const pet = route.params.ele;
 
+    const { deletePet } = useContext(StateContext)
     const { vaccinations, addNewVaccination, deleteVaccination, getVaccinations } = useContext(StateContext)
     const [vaccinationList, setVaccinationList] = vaccinations
     const [addVaccinationDetail, setVaccinationDetail] = useState(false)
@@ -24,6 +24,11 @@ export default PetDetail = ({ navigation, route }) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
     };
+
+    const onDeletePet = (id) => {
+        deletePet(id)
+        navigation.goBack();
+    }
 
     function checkType(type) {
         const lowerCaseType = type.toLowerCase();
@@ -45,6 +50,7 @@ export default PetDetail = ({ navigation, route }) => {
 
         const imageUri = pet.image ? { uri: pet.image } : defaultImage;
         return (
+            <View>
             <View style={styles.petContainer}>
                 <View style={styles.headerContainer}>
                     <View>
@@ -62,7 +68,14 @@ export default PetDetail = ({ navigation, route }) => {
                 <ScrollView contentContainerStyle={styles.vaccinationList}>
                     {displayVaccinations()}
                 </ScrollView>
+                <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
+                    <MaterialIcons name="add" size={24} color="white" />
+                </TouchableOpacity>
             </View>
+              <TouchableOpacity style={styles.deletePetButton} onPress={() => onDeletePet(pet.id)} >
+              <Text style={styles.deletePetText}> Delete Pet </Text>
+          </TouchableOpacity>
+          </View>
         );
     }
 
@@ -147,10 +160,6 @@ export default PetDetail = ({ navigation, route }) => {
                 <ScrollView>
                     {displayPetDetail()}
                 </ScrollView>
-
-                <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
-                    <MaterialIcons name="add" size={24} color="white" />
-                </TouchableOpacity>
             </View>
             </ImageBackground>
         )

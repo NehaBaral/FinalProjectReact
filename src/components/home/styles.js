@@ -157,5 +157,9 @@ export default styles = StyleSheet.create({
     padding: 16,
     marginTop: 8,
     borderRadius: 8
+  },
+  logoutBtn: {
+    color: 'red',
+    borderRadius: 8
   }
 });

@@ -10,6 +10,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Picker } from '@react-native-picker/picker';
 import { Timestamp } from "firebase/firestore";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { signOut } from "firebase/auth";
+
 
 
 
@@ -96,8 +98,15 @@ export default function Home() {
     });
 
     return <Text style={styles.petDOB}>({formattedDate})</Text>
+  }
 
-
+  const onLogout = () => {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      console.log('sign out', 'success')
+    }).catch((error) => {
+      Alert.alert('Error', 'Sign out failed, try again after some time')
+    });
   }
 
   const showDatePicker = () => {
@@ -211,6 +220,7 @@ export default function Home() {
             <View>
               <Text style={styles.name}>{user ? auth.currentUser.email.split('@')[0] : ''}</Text>
               <Text style={styles.email}>{user ? auth.currentUser.email : ''}</Text>
+              <Button color={'red'} title='Logout' onPress={onLogout}></Button>
             </View>
           </View>
 

@@ -124,6 +124,11 @@ export default styles = StyleSheet.create({
     dateContainer: {
         marginBottom: 16,
     },
+    dateSelector: {
+        backgroundColor: '#cccccc',
+        padding: 8,
+        borderRadius: 8
+    },
     dateText: {
         fontSize: 16,
         marginBottom: 8,

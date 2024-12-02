@@ -43,7 +43,7 @@ const AdoptPetScreen = () => {
   }
 
   return (
-    <ImageBackground source={require('../../../assets/bg.jpg')} style={styles.container}>
+    <ImageBackground source={require('../../../assets/Pets-detail.jpg')} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {animals.map((animal) => (
           <View key={animal.id} style={styles.animalCard}>

@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../components/home";
 import { Ionicons } from '@expo/vector-icons';
-import PetListing from "../components/petListing";
 import PetDetail from "../components/petDetail";
 import { StateProvider } from "../../StateContext";
 import FoodScheduleForm from "../components/foodScheduleForm";

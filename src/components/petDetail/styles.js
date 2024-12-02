@@ -8,13 +8,13 @@ export default styles = StyleSheet.create({
     },
     container: {
         flexGrow: 1,
-        padding: 20,
+        padding: 15,
     },
     petContainer: {
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 16,
-        height: 550,
+        height: 560,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
@@ -91,14 +91,15 @@ export default styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: 'red',
         padding: 8,
-        height: '8%',
+        height: '7%',
         borderRadius: 10,
         alignItems: 'center',
     },
     deletePetText: {
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
+        marginTop: 2,
+        fontWeight: 'bold'
     },
     fab: {
         position: 'absolute',

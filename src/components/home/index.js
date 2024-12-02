@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, Text, Image, FlatList, SafeAreaView, Button, TextInput, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, FlatList, SafeAreaView, Button, TextInput, ImageBackground, TouchableOpacity, ScrollView, Platform, Modal } from 'react-native';
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
 import { useAuthentication } from '../../hooks/useAuthentication';
@@ -12,10 +12,6 @@ import { Timestamp } from "firebase/firestore";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { signOut } from "firebase/auth";
 
-
-
-
-
 export default function Home() {
   const navigation = useNavigation();
   const { pets: [pets], getPetsByUser, addNewPet, deletePet } = useContext(StateContext)
@@ -24,10 +20,12 @@ export default function Home() {
   const [petName, setPetName] = useState('')
   const [petType, setPetType] = useState('dog')
   const [petDOB, setPetDOB] = useState(Date())
-  const [petImage, setPetImage] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isPickerVisible, setPickerVisible] = useState(false);
 
+  const handlePickerOpen = () => setPickerVisible(true);
+  const handlePickerClose = () => setPickerVisible(false);
 
   useEffect(() => {
     if (user) {
@@ -49,12 +47,10 @@ export default function Home() {
         name: petName,
         type: petType,
         dob: Timestamp.fromDate(petDOB),
-        image: petImage
       })
       setPetName('')
       setPetType('dog')
       setPetDOB(Date())
-      setPetImage('');
       setErrorMessage(null)
       setAddPet(false)
     } else {
@@ -87,7 +83,7 @@ export default function Home() {
 
   const getDOB = (value) => {
 
-    const milliseconds = value.seconds * 1000 + value.nanoseconds / 1000000;
+    const milliseconds = value?.seconds * 1000 + value?.nanoseconds / 1000000;
 
     const date = new Date(milliseconds);
 
@@ -122,15 +118,11 @@ export default function Home() {
 
   const renderPetCard = ({ item }) => {
     const defaultImage = checkType(item.type)
-
-    const imageUri = item.image ? { uri: item.image } : defaultImage;
     return (
       <TouchableOpacity style={styles.petCard} onPress={() => handlePress(item)}>
-        <Image source={imageUri} style={styles.petImage} />
-        <View style={styles.petInfo}>
-          <Text style={styles.petName}>{item.name}</Text>
-          {getDOB(item.dob)}
-        </View>
+        <Image source={defaultImage} style={styles.petImage} />
+        <Text style={styles.petName}>{item.name}</Text>
+        <Text style={styles.petInfo}>{getDOB(item.dob)}</Text>
         <Text style={styles.petType}>{item.type}</Text>
       </TouchableOpacity>
     );
@@ -149,6 +141,11 @@ export default function Home() {
 
   if (addPet) {
     return (
+      <ImageBackground
+        source={require('../../../assets/Pets-add.jpg')}
+        style={styles.background}
+        resizeMode="cover"
+      >
       <View style={styles.petContainer}>
         <SafeAreaView />
         <Text style={styles.petHeader}>Add a new pet</Text>
@@ -158,16 +155,48 @@ export default function Home() {
             placeholder="Enter pet name."
             onChangeText={(value) => setPetName(value)}
           />
-          <View style={styles.dropdownContainer}>
-            <Picker
-              selectedValue={petType}
-              onValueChange={(value) => setPetType(value)}
-              style={styles.dropdown}>
-              <Picker.Item label="Dog" value="dog" />
-              <Picker.Item label="Cat" value="cat" />
-              <Picker.Item label="Fish" value="fish" />
-            </Picker>
-          </View>
+          {Platform.OS === 'ios' && (
+            <><TouchableOpacity
+              style={styles.dropdownContainer}
+              onPress={handlePickerOpen}
+            >
+              <Text style={styles.dropdownText}>{petType || 'Select Pet Type'}</Text>
+            </TouchableOpacity><Modal
+              transparent={true}
+              animationType="slide"
+              visible={isPickerVisible}
+              onRequestClose={handlePickerClose}
+            >
+                <View style={styles.modalOverlay}>
+                  <View style={styles.pickerContainer}>
+                    <Picker
+                      selectedValue={petType}
+                      onValueChange={(value) => {
+                        setPetType(value);
+                        handlePickerClose();
+                      }}
+                    >
+                      <Picker.Item label="Dog" value="dog" />
+                      <Picker.Item label="Cat" value="cat" />
+                      <Picker.Item label="Fish" value="fish" />
+                    </Picker>
+                    <Button title="Close" onPress={handlePickerClose} />
+                  </View>
+                </View>
+              </Modal></>
+          )}
+          {Platform.OS === 'android' && (
+            <View style={styles.dropdownContainer}>
+              <Picker
+                selectedValue={petType}
+                onValueChange={(value) => setPetType(value)}
+                style={styles.dropdownText}>
+                <Picker.Item label="Dog" value="dog" />
+                <Picker.Item label="Cat" value="cat" />
+                <Picker.Item label="Fish" value="fish" />
+              </Picker>
+            </View>
+          )}
           <View style={styles.dateContainer}>
             <Text style={styles.dateText}>Pet DOB</Text>
             <TouchableOpacity
@@ -189,23 +218,25 @@ export default function Home() {
             />
             }
           </View>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter image URL (Optional)"
-            onChangeText={(value) => setPetImage(value)}
-          />
           {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
           <View style={styles.buttonContainer}>
-            <View style={styles.button}>
+          <TouchableOpacity style={[styles.button, styles.closeButton]} onPress={close}>
+    <Text style={styles.buttonText}>Close</Text>
+  </TouchableOpacity>
+  <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={submitPet}>
+    <Text style={styles.buttonText}>Submit</Text>
+  </TouchableOpacity>
+            {/* <View style={styles.button}>
               <Button color='red' title="Close" onPress={close}></Button>
             </View>
             <View>
               <Button title="Submit" onPress={submitPet}></Button>
-            </View>
+            </View> */}
           </View>
         </View>
 
       </View>
+      </ImageBackground>
     )
   } else {
     return (
@@ -215,16 +246,25 @@ export default function Home() {
         resizeMode="cover"
       >
         <ScrollView contentContainerStyle={styles.container}>
-          <View style={styles.profileContainer}>
-            <Ionicons name="person-circle-outline" size={70} color="black" style={styles.avatar} />
-            <View>
-              <Text style={styles.name}>{user ? auth.currentUser.email.split('@')[0] : ''}</Text>
-              <Text style={styles.email}>{user ? auth.currentUser.email : ''}</Text>
-              <Button color={'red'} title='Logout' onPress={onLogout}></Button>
-            </View>
+        <View style={styles.profileContainer}>
+          <Ionicons name="person-circle-outline" size={70} color="black" style={styles.avatar} />
+          <View style={styles.profileInfo}>
+            <Text style={styles.name}>{user ? auth.currentUser.email.split('@')[0] : ''}</Text>
+            <Text style={styles.email}>{user ? auth.currentUser.email : ''}</Text>
           </View>
-
+          <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
+            <Ionicons name="log-out-outline" size={24} color="white" style={styles.logoutIcon} />
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+          <View>
           <Text style={styles.sectionTitle}>Your Pets</Text>
+          <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
+            <MaterialIcons name="add" size={24} color="white" />
+            <Text style={styles.addButton}> Add</Text>
+          </TouchableOpacity>
+          </View>
+         
           <FlatList
             data={pets}
             renderItem={renderPetCard}
@@ -233,9 +273,7 @@ export default function Home() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.petList}
           />
-          <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
-            <MaterialIcons name="add" size={24} color="white" />
-          </TouchableOpacity>
+         
         </ScrollView>
       </ImageBackground>
     );

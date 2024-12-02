@@ -13,24 +13,6 @@ import AdoptPetScreen from "../components/adoptpet/index";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const Pet = () => {
-  return (
-    <Stack.Navigator>
-
-      <Stack.Screen
-        name='PetList'
-        component={PetListing}>
-      </Stack.Screen>
-
-      <Stack.Screen
-        name='PetDetail'
-        component={PetDetail}>
-      </Stack.Screen>
-
-    </Stack.Navigator>
-  )
-};
-
 const HomeTab = () => {
   return (
     <Stack.Navigator>
@@ -96,12 +78,7 @@ export default function HomeStack() {
             component={HomeTab}
             options={{ headerShown: false, title: 'Home' }}
           />
-          {/* <Tab.Screen
-            name="SecondScreen"
-            component={Pet}
-            options={{ headerShown: false }}
-          /> */}
-                 <Tab.Screen
+          <Tab.Screen
             name="AdoptPets"
             component={AdoptPet}
             options={{ headerShown: false }}

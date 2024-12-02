@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { Platform } from "react-native";
 
 export default styles = StyleSheet.create({
   background: {
@@ -6,7 +7,7 @@ export default styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    padding: 20,
+    padding: 10,
     paddingVertical: 50,
   },
   profileContainer: {
@@ -14,9 +15,9 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 30,
-    backgroundColor: 'rgba(248, 248, 249, 0.9)',
+    backgroundColor: '#fff',
     padding: 20,
-    paddingVertical: 12,
+    height: 110,
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -32,6 +33,8 @@ export default styles = StyleSheet.create({
     fontFamily: 'serif',
     fontWeight: 'semibold',
     color: '#444',
+    marginTop: 10,
+    marginRight: 80
   },
   email: {
     fontSize: 14,
@@ -44,11 +47,8 @@ export default styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
-    marginTop: 13,
-    marginBottom: 15,
-  },
-  petList: {
-    paddingHorizontal: 5,
+    marginTop: 30,
+    marginBottom: 20,
   },
   petCard: {
     backgroundColor: '#fff',
@@ -57,7 +57,7 @@ export default styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     width: 150,
-    height: 200,
+    height: 230,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -93,11 +93,13 @@ export default styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: '#6a1b9a',
-    borderRadius: 30,
-    padding: 20,
+    right: 10,
+    backgroundColor: '#007AFF',
+    borderRadius:10,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    marginTop: 30,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -114,7 +116,8 @@ export default styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 8,
-    margin: 8
+    margin: 8,
+    backgroundColor: '#fff'
   },
   errorText: {
     color: 'red',
@@ -126,40 +129,93 @@ export default styles = StyleSheet.create({
   },
   button: {
     borderRadius: 8,
+    padding: 10,
     marginTop: 10,
     marginBottom: 20,
   },
+  addButton: {
+    color: '#fff',
+    fontWeight: 600,
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center'
+  },
+  closeButton: {
+    backgroundColor: 'red',
+  },
+  submitButton: {
+    backgroundColor: '#007AFF',
+  },
   petHeader: {
     fontSize: 30,
-    marginHorizontal: 10,
+    color: '#ffff',
+    marginTop: 10,
+    marginHorizontal: 50,
+    marginBottom: 30,
     fontWeight: 'bold'
   },
   dropdownContainer: {
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 5,
+    borderRadius: 10,
     marginVertical: 10,
+    backgroundColor: '#fff',
     marginHorizontal: 10,
-    paddingHorizontal: 5,
+    paddingHorizontal: Platform.OS == 'ios' ? 10: 2,
+    paddingVertical: Platform.OS == 'ios' ? 10 : 0
   },
-  dropdown: {
-    height: 53,
-    width: '100%',
-    fontSize: 12
-  },
+  dropdownText: {
+      fontSize: 16,
+      color: '#333',
+    },
   dateContainer: {
     marginBottom: 16,
     marginTop: 8,
     marginHorizontal: 8
   },
   dateSelector: {
-    backgroundColor: '#cccccc',
+    backgroundColor: '#fff',
     padding: 16,
     marginTop: 8,
     borderRadius: 8
   },
-  logoutBtn: {
-    color: 'red',
-    borderRadius: 8
-  }
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 8,
+  },
+  logoutIcon: {
+    marginRight: 6,
+  },
+  logoutText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  modalOverlay: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    pickerContainer: {
+      backgroundColor: '#fff',
+      margin: 20,
+      borderRadius: 10,
+      padding: 20,
+    },
+    dateText: {
+      color: '#fff',
+      paddingHorizontal: 5,
+      paddingVertical: 5,
+      fontWeight: '600',
+      fontSize: 18
+    },
+
 });

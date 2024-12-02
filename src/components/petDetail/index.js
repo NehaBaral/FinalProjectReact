@@ -61,7 +61,7 @@ export default PetDetail = ({ navigation, route }) => {
 
     const getVaccinationDate = (value) => {
 
-        const milliseconds = value.seconds * 1000 + value.nanoseconds / 1000000;
+        const milliseconds = value?.seconds * 1000 + value?.nanoseconds / 1000000;
 
         const date = new Date(milliseconds);
 
@@ -77,7 +77,7 @@ export default PetDetail = ({ navigation, route }) => {
     }
 
     const getDOB = (value) => {
-        const milliseconds = value.seconds * 1000 + value.nanoseconds / 1000000;
+        const milliseconds = value?.seconds * 1000 + value?.nanoseconds / 1000000;
         const date = new Date(milliseconds);
 
         const formattedDate = date.toLocaleString('en-US', {
@@ -91,7 +91,6 @@ export default PetDetail = ({ navigation, route }) => {
     const displayPetDetail = () => {
         const defaultImage = checkType(pet.type)
 
-        const imageUri = pet.image ? { uri: pet.image } : defaultImage;
         return (
             <View>
                 <View style={styles.petContainer}>
@@ -101,7 +100,7 @@ export default PetDetail = ({ navigation, route }) => {
                             <Text style={styles.petType}>{pet?.type}</Text>
                             {getDOB(pet.dob)}
                         </View>
-                        <Image source={imageUri} style={styles.petImage} />
+                        <Image source={defaultImage} style={styles.petImage} />
                     </View>
 
                     <TouchableOpacity style={styles.addScheduleBtn} onPress={OnAddSchedule}>
@@ -166,7 +165,7 @@ export default PetDetail = ({ navigation, route }) => {
 
     if (addVaccinationDetail) {
         return (
-            <ImageBackground source={require('../../../assets/bg.jpg')} style={styles.background}>
+            <ImageBackground source={require('../../../assets/Pets-detail.jpg')} style={styles.background}>
                 <SafeAreaView />
 
                 <View style={styles.container}>
@@ -212,7 +211,7 @@ export default PetDetail = ({ navigation, route }) => {
             </ImageBackground>)
     } else {
         return (
-            <ImageBackground source={require('../../../assets/bg.jpg')} style={styles.background}>
+            <ImageBackground source={require('../../../assets/Pets-detail.jpg')} style={styles.background}>
                 <View style={styles.container}>
                     <SafeAreaView />
                     <ScrollView>

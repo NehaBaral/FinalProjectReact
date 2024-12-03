@@ -34,6 +34,7 @@ export default function Home() {
   }, [user]);
 
   const handleFABPress = () => {
+    setPetDOB(new Date())
     setAddPet(true)
   }
 
@@ -64,19 +65,6 @@ export default function Home() {
     hideDatePicker();
   }
 
-  const handlePetNameChange = (value) => {
-    setPetName(value)
-  }
-
-  const handlePetTypeChange = (value) => {
-    setPetType(value)
-  }
-
-  const handlePetAgeChange = (value) => {
-    setPetAge(value)
-  }
-
-
   const handlePress = (item) => {
     navigation.navigate('PetDetail', { ele: item })
   };
@@ -106,7 +94,7 @@ export default function Home() {
   }
 
   const showDatePicker = () => {
-    setPetDOB(new Date())
+    
     setDatePickerVisibility(true);
   };
 

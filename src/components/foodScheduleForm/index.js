@@ -47,7 +47,6 @@ export default function FoodScheduleForm({ navigation, route }) {
         }));
         setMealData(meals);
         setShowTimePicker({});
-        setFoodCount(0);
     };
 
     // function to update time for a specific meal

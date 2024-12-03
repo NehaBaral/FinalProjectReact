@@ -104,10 +104,10 @@ export default PetDetail = ({ navigation, route }) => {
                     </View>
 
                     <TouchableOpacity style={styles.addScheduleBtn} onPress={OnAddSchedule}>
-                        <Text style={{ color: 'white' }}>Create schedule for food tracking</Text>
+                        <Text style={{ color: 'white' }}>Food Schedule</Text>
                     </TouchableOpacity>
 
-                    <ScrollView contentContainerStyle={styles.vaccinationList}>
+                    <ScrollView>
                         {displayVaccinations()}
                     </ScrollView>
                     <TouchableOpacity style={styles.fab} onPress={handleFABPress}>

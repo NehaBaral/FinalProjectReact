@@ -17,7 +17,7 @@ export default styles = StyleSheet.create({
     marginBottom: 30,
     backgroundColor: '#fff',
     padding: 20,
-    height: 110,
+    
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

@@ -94,7 +94,7 @@ export default function Home() {
   }
 
   const showDatePicker = () => {
-    
+
     setDatePickerVisibility(true);
   };
 
@@ -134,96 +134,96 @@ export default function Home() {
         style={styles.background}
         resizeMode="cover"
       >
-      <View style={styles.petContainer}>
-        <SafeAreaView />
-        <Text style={styles.petHeader}>Add a new pet</Text>
-        <View style={styles.addContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter pet name."
-            onChangeText={(value) => setPetName(value)}
-          />
-          {Platform.OS === 'ios' && (
-            <><TouchableOpacity
-              style={styles.dropdownContainer}
-              onPress={handlePickerOpen}
-            >
-              <Text style={styles.dropdownText}>{petType || 'Select Pet Type'}</Text>
-            </TouchableOpacity><Modal
-              transparent={true}
-              animationType="slide"
-              visible={isPickerVisible}
-              onRequestClose={handlePickerClose}
-            >
-                <View style={styles.modalOverlay}>
-                  <View style={styles.pickerContainer}>
-                    <Picker
-                      selectedValue={petType}
-                      onValueChange={(value) => {
-                        setPetType(value);
-                        handlePickerClose();
-                      }}
-                    >
-                      <Picker.Item label="Dog" value="dog" />
-                      <Picker.Item label="Cat" value="cat" />
-                      <Picker.Item label="Fish" value="fish" />
-                    </Picker>
-                    <Button title="Close" onPress={handlePickerClose} />
-                  </View>
-                </View>
-              </Modal></>
-          )}
-          {Platform.OS === 'android' && (
-            <View style={styles.dropdownContainer}>
-              <Picker
-                selectedValue={petType}
-                onValueChange={(value) => setPetType(value)}
-                style={styles.dropdownText}>
-                <Picker.Item label="Dog" value="dog" />
-                <Picker.Item label="Cat" value="cat" />
-                <Picker.Item label="Fish" value="fish" />
-              </Picker>
-            </View>
-          )}
-          <View style={styles.dateContainer}>
-            <Text style={styles.dateText}>Pet DOB</Text>
-            <TouchableOpacity
-              style={styles.dateSelector}
-              onPress={showDatePicker}>
-              <Text>{petDOB.toLocaleString('en-US', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-              })}</Text>
-            </TouchableOpacity>
-
-            {isDatePickerVisible && <DateTimePicker
-              testID="dateTimePicker"
-              value={petDOB}
-              mode="date"
-              display="default"
-              onChange={onChange}
+        <View style={styles.petContainer}>
+          <SafeAreaView />
+          <Text style={styles.petHeader}>Add a new pet</Text>
+          <View style={styles.addContainer}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter pet name."
+              onChangeText={(value) => setPetName(value)}
             />
-            }
-          </View>
-          {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
-          <View style={styles.buttonContainer}>
-          <TouchableOpacity style={[styles.button, styles.closeButton]} onPress={close}>
-    <Text style={styles.buttonText}>Close</Text>
-  </TouchableOpacity>
-  <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={submitPet}>
-    <Text style={styles.buttonText}>Submit</Text>
-  </TouchableOpacity>
-            {/* <View style={styles.button}>
+            {Platform.OS === 'ios' && (
+              <><TouchableOpacity
+                style={styles.dropdownContainer}
+                onPress={handlePickerOpen}
+              >
+                <Text style={styles.dropdownText}>{petType || 'Select Pet Type'}</Text>
+              </TouchableOpacity><Modal
+                transparent={true}
+                animationType="slide"
+                visible={isPickerVisible}
+                onRequestClose={handlePickerClose}
+              >
+                  <View style={styles.modalOverlay}>
+                    <View style={styles.pickerContainer}>
+                      <Picker
+                        selectedValue={petType}
+                        onValueChange={(value) => {
+                          setPetType(value);
+                          handlePickerClose();
+                        }}
+                      >
+                        <Picker.Item label="Dog" value="dog" />
+                        <Picker.Item label="Cat" value="cat" />
+                        <Picker.Item label="Fish" value="fish" />
+                      </Picker>
+                      <Button title="Close" onPress={handlePickerClose} />
+                    </View>
+                  </View>
+                </Modal></>
+            )}
+            {Platform.OS === 'android' && (
+              <View style={styles.dropdownContainer}>
+                <Picker
+                  selectedValue={petType}
+                  onValueChange={(value) => setPetType(value)}
+                  style={styles.dropdownText}>
+                  <Picker.Item label="Dog" value="dog" />
+                  <Picker.Item label="Cat" value="cat" />
+                  <Picker.Item label="Fish" value="fish" />
+                </Picker>
+              </View>
+            )}
+            <View style={styles.dateContainer}>
+              <Text style={styles.dateText}>Pet DOB</Text>
+              <TouchableOpacity
+                style={styles.dateSelector}
+                onPress={showDatePicker}>
+                <Text>{petDOB.toLocaleString('en-US', {
+                  day: '2-digit',
+                  month: 'short',
+                  year: 'numeric'
+                })}</Text>
+              </TouchableOpacity>
+
+              {isDatePickerVisible && <DateTimePicker
+                testID="dateTimePicker"
+                value={petDOB}
+                mode="date"
+                display="default"
+                onChange={onChange}
+              />
+              }
+            </View>
+            {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={[styles.button, styles.closeButton]} onPress={close}>
+                <Text style={styles.buttonText}>Close</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.button, styles.submitButton]} onPress={submitPet}>
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+              {/* <View style={styles.button}>
               <Button color='red' title="Close" onPress={close}></Button>
             </View>
             <View>
               <Button title="Submit" onPress={submitPet}></Button>
             </View> */}
+            </View>
           </View>
-        </View>
 
-      </View>
+        </View>
       </ImageBackground>
     )
   } else {
@@ -234,25 +234,26 @@ export default function Home() {
         resizeMode="cover"
       >
         <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.profileContainer}>
-          <Ionicons name="person-circle-outline" size={70} color="black" style={styles.avatar} />
-          <View style={styles.profileInfo}>
-            <Text style={styles.name}>{user ? auth.currentUser.email.split('@')[0] : ''}</Text>
-            <Text style={styles.email}>{user ? auth.currentUser.email : ''}</Text>
+          <View style={styles.profileContainer}>
+            <Ionicons name="person-circle-outline" size={70} color="black" style={styles.avatar} />
+            <View style={styles.profileInfo}>
+              <Text style={styles.name}>{user ? auth.currentUser.email.split('@')[0] : ''}</Text>
+              <Text style={styles.email}>{user ? auth.currentUser.email : ''}</Text>
+              <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
+                <Ionicons name="log-out-outline" size={24} color="white" style={styles.logoutIcon} />
+                <Text style={styles.logoutText}>Logout</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
-          <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
-            <Ionicons name="log-out-outline" size={24} color="white" style={styles.logoutIcon} />
-            <Text style={styles.logoutText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
           <View>
-          <Text style={styles.sectionTitle}>Your Pets</Text>
-          <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
-            <MaterialIcons name="add" size={24} color="white" />
-            <Text style={styles.addButton}> Add</Text>
-          </TouchableOpacity>
+            <Text style={styles.sectionTitle}>Your Pets</Text>
+            <TouchableOpacity style={styles.fab} onPress={handleFABPress}>
+              <MaterialIcons name="add" size={24} color="white" />
+              <Text style={styles.addButton}> Add</Text>
+            </TouchableOpacity>
           </View>
-         
+
           <FlatList
             data={pets}
             renderItem={renderPetCard}
@@ -261,7 +262,7 @@ export default function Home() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.petList}
           />
-         
+
         </ScrollView>
       </ImageBackground>
     );

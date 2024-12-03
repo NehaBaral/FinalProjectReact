@@ -39,6 +39,7 @@ export default function Home() {
   }
 
   const close = () => {
+    setErrorMessage(null)
     setAddPet(false)
   }
 

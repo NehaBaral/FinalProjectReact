@@ -147,6 +147,7 @@ export default PetDetail = ({ navigation, route }) => {
     }
 
     const close = () => {
+        setErrorMessage(null)
         setVaccinationDetail(false)
     }
 

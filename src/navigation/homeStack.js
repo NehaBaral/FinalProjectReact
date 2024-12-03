@@ -64,10 +64,8 @@ export default function HomeStack() {
             let iconName;
             if (route.name === 'HomeTab') {
               iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'SecondScreen') {
-              iconName = focused ? 'list' : 'list-outline';
-            } else if(route.name==='AdoptPets') {
-              iconName = focused ? 'home' : 'home-outline'
+            }else if(route.name==='AdoptPets') {
+              iconName = focused ? 'list' : 'list-outline'
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           }
